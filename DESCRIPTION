@@ -1,0 +1,16 @@
+Package: MRMconverteR
+Type: Package
+Title: What the Package Does (Title Case)
+Version: 0.0.99
+Author: Tom Wilson <tpw2@aber.ac.uk>
+Maintainer: Tom Wilson <tpw2@aber.ac.uk>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: GPL (>= 3)
+Imports:
+	mzR,
+	tools
+Suggests;
+	testthat
+Encoding: UTF-8
+LazyData: true
