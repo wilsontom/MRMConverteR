@@ -1,16 +1,17 @@
 Package: MRMconverteR
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Some text here
 Version: 0.0.99
 Author: Tom Wilson <tpw2@aber.ac.uk>
 Maintainer: Tom Wilson <tpw2@aber.ac.uk>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: Some text here
 License: GPL (>= 3)
 Imports:
-	mzR,
-	tools
-Suggests;
-	testthat
-Encoding: UTF-8
-LazyData: true
+    mzR (>= 2.12),
+    tools
+URL: https://github.com/wilsontom/MRMConverteR
+BugReports: https://github.com/wilsontom/MRMConverteR
+LazyData: TRUE
+Suggests:
+    testthat,
+    cover
