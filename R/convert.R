@@ -107,8 +107,8 @@ convert <- function(input, outpath)
 
   hd_tmp[,'filterString'] <- as.character(hd_tmp[,'filterString'])
 
-  destfile <- paste0(outpath, '/', basename(input))
-  destfile <- gsub('.mzML', '.mzXML', destfile)
+  destfile <- paste0(outpath, '/', 'convert_', basename(input))
+  destfile <- gsub('.mzML', '.mzML', destfile)
 
   for(i in seq_along(chrom_agg)){
     chrom_agg[[i]] <- as.matrix(chrom_agg[[i]])
