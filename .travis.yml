@@ -1,12 +1,33 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
 language: R
-sudo: false
+warnings_are_errors: false
+sudo: required
+dist: trusty
+bio_required: true
 cache: packages
 
+r:
+ - release
+ - devel
+
+apt_packages:
+ - libxml2
+ - libnetcdf-dev
+ - udunits-bin
+ - libudunits2-dev
+
+r_packages:
+ - testthat
+ - covr
+
+bioc_packages:
+ - mzR
+
 after_success:
-    - Rscript -e 'covr::codecov()'
+ - Rscript -e 'library(covr); codecov()'
 
-
-
-
+notifications:
+  email:
+   on_success: change
+   on_failure: change
