@@ -1,7 +1,7 @@
 #' Clean Scan Index
 #'
 #' @param x a vector of raw scan indexes
-#' @keywords intenral
+#' @keywords internal
 #'
 
 clean_index <- function(x)

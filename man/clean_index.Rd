@@ -12,4 +12,4 @@ clean_index(x)
 \description{
 Clean Scan Index
 }
-\keyword{intenral}
+\keyword{internal}
