@@ -7,12 +7,12 @@ test_that('MRMConverteR', {
   expect_true(isS4(mrm_raw))
   expect_that(length(mrm_raw), equals(0))
 
-  expect_that(nChrom(mrm_raw), is_more_than(1))
+  expect_that(mzR::nChrom(mrm_raw), is_more_than(1))
 
-  mrm_chroms <- chromatograms(mrm_raw)
+  mrm_chroms <- mzR::chromatograms(mrm_raw)
 
   expect_true(is.list(mrm_chroms))
 
-  expect_error(header(mrm_raw))
+  expect_error(mzR::header(mrm_raw))
 
 })
