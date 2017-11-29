@@ -1,6 +1,6 @@
 # MRMConverteR
 
->__convert MRM-MS (.mzML) files to LC-MS style .mzXML__
+>__convert MRM-MS (.mzML) files to LC-MS style .mzML__
 
 
 ```R
