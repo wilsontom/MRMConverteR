@@ -80,7 +80,7 @@ convert <- function(input, outpath)
 
 
   for (i in seq_along(chrom_agg)) {
-    chrom_agg[[i]]$mz <- strip_ms1(chrom_agg[[i]]$mz)
+    chrom_agg[[i]]$mz <- strip_ms2(chrom_agg[[i]]$mz)
   }
 
 
