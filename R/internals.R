@@ -35,6 +35,8 @@ split_index <- function(x)
 
   xmz <- data.frame(ms1 = unlist(xms1), ms2 = unlist(xms2))
 
+  xmz[,'ms1'] <- as.numeric(as.character(xmz[,'ms1']))
+  xmz[,'ms2'] <- as.numeric(as.character(xmz[,'ms2']))
   return(xmz)
 
 }
@@ -46,7 +48,7 @@ split_index <- function(x)
 #'
 
 
-strip_ms1 <- function(x)
+strip_ms2 <- function(x)
 {
   xms <- strsplit(as.character(x), '-')
 
@@ -56,10 +58,10 @@ strip_ms1 <- function(x)
     stop('some text here')
   }
 
-  xms1 <- unlist(lapply(xms, function(x)
-    (x[[1]])))
+  xms2 <- unlist(lapply(xms, function(x)
+    (x[[2]])))
 
-  return(as.numeric(xms1))
+  return(as.numeric(xms2))
 
 }
 
