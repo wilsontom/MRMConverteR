@@ -38,5 +38,14 @@ test_that('MRMConverteR', {
   expect_true(is.vector(mzr_hd))
   expect_true(length(mzr_hd) == length(unique(mzr_hd)))
 
+  fl <- system.file("threonine", "threonine_i2_e35_pH_tree.mzXML",
+                    package = "msdata")
+
+  expect_error(convert(f1, ''))
+
+
+
+
+
 
   })

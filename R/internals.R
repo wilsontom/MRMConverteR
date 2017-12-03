@@ -26,7 +26,7 @@ split_index <- function(x)
   xlen <- vapply(xa, length, length(xa))
 
   if (any(xlen != 4)) {
-    stop('some text here')
+    stop('length(', deparse(substitute(x)), '); should equal 4', call. = FALSE)
   }
   xms1 <- lapply(xa, function(x)
     (paste0(x[[1]], '.', x[[2]])))
@@ -55,7 +55,7 @@ strip_ms2 <- function(x)
   xlen <- vapply(xms, length, length(xms))
 
   if (any(xlen != 2)) {
-    stop('some text here')
+    stop('length(', deparse(substitute(x)), '); should equal 2', call. = FALSE)
   }
 
   xms2 <- unlist(lapply(xms, function(x)
