@@ -9,3 +9,24 @@
 ```R
 devtools::install_github('wilsontom/MRMConverteR')
 ```
+
+#### Usage
+
+MRM-MS `.mzML` files should have been created using the ProteoWizard `msconvert` tool.
+
+> __NOTE__ this package has only been tested with MRM-MS data acquired on a TSQ Vantage (ThermoScientific) which were then converted to `.mzML` using ProteoWizard 3.0.10246 64-bit.
+
+There is only one function exported from `MRMConverteR`; __`convert`__
+
+The function input is __(1)__ the `.mzML` to convert and __(2)__ the destination path for the converted file. Filenames of converted files are the same as the input; with `convert-` prepended.
+
+
+````R
+library(MRMConverteR)
+
+convert('inst/extdata/example_qqq.mzML', 'inst/extdata')
+
+list.files('inst/extdata')
+[1] "convert-example_qqq.mzML" "example_qqq.mzML"  
+
+```
