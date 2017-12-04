@@ -43,9 +43,4 @@ test_that('MRMConverteR', {
 
   expect_error(convert(f1, ''))
 
-
-
-
-
-
   })
