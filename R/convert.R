@@ -73,9 +73,16 @@ convert <- function(input, outpath, return = FALSE)
 
   chrom_agg <-
     chrom_all %>% group_by(., polarity, rt, mz) %>% summarise(., int = sum(int)) %>% ungroup(.) %>%
-    mutate(., spf = paste0(.$rt, ':', .$polarity)) %>% arrange(., rt)
+    mutate(., spf = paste0(.$polarity, ':', .$rt)) %>% arrange(., rt)
 
-  chrom_split <- split(chrom_agg, chrom_agg$spf)
+  uuid <- data.frame(spf = unique(chrom_agg[,'spf']), id = seq(from = 1, to = length(unique(chrom_agg[,'spf']$spf))))
+
+
+  midx <- match(chrom_agg$spf, uuid[,'spf'])
+  chrom_agg <- chrom_agg %>% mutate(., spid = uuid$id[midx])
+
+
+  chrom_split <- split(chrom_agg, ordered(chrom_agg$spid))
 
   chrom_pol <-
     purrr::map(chrom_split, ~ {
@@ -103,7 +110,7 @@ convert <- function(input, outpath, return = FALSE)
   # this is too slow
   peaks <-
     purrr::map(chrom_split, ~ {
-      select(.,-c(polarity, rt, spf)) %>% as.matrix(.)
+      select(.,-c(polarity, rt, spf,spid)) %>% as.matrix(.)
     })
 
 
@@ -123,6 +130,8 @@ convert <- function(input, outpath, return = FALSE)
         to = nrow(hd_tmp),
         by = 1)
 
+
+  hd_tmp[,'msLevel'] <- rep(1, nrow(hd_tmp))
   hd_tmp[, 'polarity'] <- chrom_pol
   hd_tmp[, 'retentionTime'] <- chrom_rt
   hd_tmp[, 'peaksCount'] <- peaks_count
@@ -144,8 +153,8 @@ convert <- function(input, outpath, return = FALSE)
     destfile <- gsub('.mzML', '.mzML', destfile)
 
     mzR::writeMSData(
-      data = peaks,
-      filename = destfile,
+      object = peaks,
+      file = destfile,
       header = hd_tmp,
       outformat = 'mzml'
     )
