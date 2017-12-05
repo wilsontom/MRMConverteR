@@ -4,18 +4,20 @@
 \alias{convert}
 \title{Convert MRM-MS files to LC-MS style files}
 \usage{
-convert(input, outpath)
+convert(input, outpath, return = FALSE)
 }
 \arguments{
 \item{input}{a character stirng of the absolute file path of a MRM-MS \code{.mzML} file}
 
-\item{outpath}{a character string of the location to save converted files to}
+\item{outpath}{a character string of the location to save converted files to. If \code{NULL} then \code{return} must be \code{TRUE}}
+
+\item{return}{logical ; if \code{TRUE} then the `peaks` list is returned from the function. \code{Default is FALSE}.}
 }
 \description{
 Convert MRM-MS \code{.mzML} files which contain a series of time-intensity pairs (chromatograms) to a series of LC-MS scan style \code{m/z}-intensity pairs.
 }
 \details{
-Once the data is represented as a matrix of \code{m/z} and intensity for each scan; the data can be further processed by open source tools such as \code{xcms}.
+Once the data is represented as a matrix of \code{m/z} and intensity pairs for each scan; the data can be further processed by open source tools such as \code{xcms}.
 }
 \author{
 Tom Wilson \email{tpw2@aber.ac.uk}
