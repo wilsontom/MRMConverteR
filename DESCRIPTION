@@ -6,8 +6,10 @@ Author: Tom Wilson <tpw2@aber.ac.uk>
 Maintainer: Tom Wilson <tpw2@aber.ac.uk>
 Description: MRMConverteR takes mzML files contain multiple MRM-MS chromatograms and converts them to LC-MS style scan data so that they can be processed by xcms.
 License: GPL (>= 3)
+Depends: dplyr
 Imports:
     mzR (>= 2.12),
+    purrr,
     tools
 URL: https://github.com/wilsontom/MRMConverteR
 BugReports: https://github.com/wilsontom/MRMConverteR
