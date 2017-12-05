@@ -1,75 +1,49 @@
-#' Clean Scan Index
-#'
-#' @param x a vector of raw scan indexes
+globalVariables(c('.', 'rt', 'int', 'product', 'polarity', 'mz'))
+
+
 #' @keywords internal
 #'
 
-clean_index <- function(x)
+extract_polarity <- function(x)
 {
-  xa <- gsub('X..SRM.SIC.', '', x)
-  xb <- gsub('SRM.SIC.', '', xa)
-  return(xb)
+  x <- as.character(x)
+
+  if(length(grep('X..', x)) == 1){
+    p <- -1
+  }else{
+    p <- 1
+  }
+  if(x == 'TIC'){
+    p <- 0
+  }
+  return(p)
 }
 
-#' Split Scan Index
-#'
-#' @param x a vector of cleaned scan indexes
 #' @keywords internal
-#'
-
-split_index <- function(x)
+extract_precursor <- function(x)
 {
-  if (length(x) < 1) {
+  if (x == 'TIC') {
+    return(0)
+  } else{
+    x <- gsub('X..SRM.SIC.|SRM.SIC.', '', x)
+    xa <- strsplit(x, '\\.')
+    return(as.numeric(paste0(xa[[1]][1], '.', xa[[1]][2])))
   }
-  xa <- strsplit(x, '\\.')
-
-  xlen <- vapply(xa, length, length(xa))
-
-  if (any(xlen != 4)) {
-    stop('length(', deparse(substitute(x)), '); should equal 4', call. = FALSE)
-  }
-  xms1 <- lapply(xa, function(x)
-    (paste0(x[[1]], '.', x[[2]])))
-  xms2 <- lapply(xa, function(x)
-    (paste0(x[[3]], '.', x[[4]])))
-
-  xmz <- data.frame(ms1 = unlist(xms1), ms2 = unlist(xms2))
-
-  xmz[,'ms1'] <- as.numeric(as.character(xmz[,'ms1']))
-  xmz[,'ms2'] <- as.numeric(as.character(xmz[,'ms2']))
-  return(xmz)
-
 }
 
-#' Extract Q1 m/z value
-#'
-#' @param x a vector of MS1-MS2 pairs
 #' @keywords internal
-#'
-
-
-strip_ms2 <- function(x)
+extract_prodcut <- function(x)
 {
-  xms <- strsplit(as.character(x), '-')
-
-  xlen <- vapply(xms, length, length(xms))
-
-  if (any(xlen != 2)) {
-    stop('length(', deparse(substitute(x)), '); should equal 2', call. = FALSE)
+  if (x == 'TIC') {
+    return(0)
+  } else{
+    x <- gsub('X..SRM.SIC.|SRM.SIC.', '', x)
+    xa <- strsplit(x, '\\.')
+    return(as.numeric(paste0(xa[[1]][3], '.', xa[[1]][4])))
   }
-
-  xms2 <- unlist(lapply(xms, function(x)
-    (x[[2]])))
-
-  return(as.numeric(xms2))
-
 }
 
-#' mzR Header names
-#'
 #' @keywords internal
-#'
-
 header_names <- function()
 {
   fl <- system.file("threonine", "threonine_i2_e35_pH_tree.mzXML",

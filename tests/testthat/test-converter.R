@@ -15,23 +15,15 @@ test_that('MRMConverteR', {
   expect_true(is.list(mrm_chroms))
   expect_error(mzR::header(mrm_raw))
 
+  xa <- names(mrm_chroms[[10]])[2]
+  xb <- names(mrm_chroms[[1]])[2]
+  expect_true(is.numeric(MRMConverteR:::extract_polarity(xa)))
+  expect_true(is.numeric(MRMConverteR:::extract_precursor(xa)))
+  expect_true(is.numeric(MRMConverteR:::extract_prodcut(xa)))
 
-  chrom_names <-
-    unlist(lapply(mrm_chroms, function(x)
-      (names(x)[[2]])))[-1]
-
-  expect_true(is.vector(MRMConverteR:::clean_index(chrom_names)))
-
-  chrom_names_clean <- MRMConverteR:::clean_index(chrom_names)
-  chrom_split <- MRMConverteR:::split_index(chrom_names_clean)
-
-  expect_true(is.data.frame(chrom_split))
-  expect_true(ncol(chrom_split) == 2)
-  expect_true(nrow(chrom_split) == length(chrom_names_clean))
-
-  check_size <- chrom_split[, 'ms1'] > chrom_split[, 'ms2']
-
-  expect_true(all(check_size == TRUE))
+  expect_that(MRMConverteR:::extract_polarity(xb), equals(0))
+  expect_that(MRMConverteR:::extract_precursor(xb), equals(0))
+  expect_that(MRMConverteR:::extract_prodcut(xb), equals(0))
 
   mzr_hd <- MRMConverteR:::header_names()
 
@@ -42,5 +34,12 @@ test_that('MRMConverteR', {
                     package = "msdata")
 
   expect_error(convert(f1, ''))
+
+  ps <- convert(example_file_local, NULL, return = TRUE)
+
+  expect_true(is.list(ps))
+
+  psdim <- vapply(ps, ncol, length(ps))
+  expect_true(all(psdim == 2))
 
   })
