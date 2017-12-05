@@ -1,4 +1,4 @@
-globalVariables('.')
+globalVariables(c('.', 'rt', 'int', 'product', 'polarity', 'mz'))
 
 
 #' @keywords internal
@@ -43,11 +43,7 @@ extract_prodcut <- function(x)
   }
 }
 
-
-
 #' @keywords internal
-#'
-
 header_names <- function()
 {
   fl <- system.file("threonine", "threonine_i2_e35_pH_tree.mzXML",
