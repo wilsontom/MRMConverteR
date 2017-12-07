@@ -6,7 +6,7 @@
 #'
 #' @param input a character stirng of the absolute file path of a MRM-MS \code{.mzML} file
 #' @param outpath a character string of the location to save converted files to. If \code{NULL} then \code{return} must be \code{TRUE}
-#' @param return logical ; if \code{TRUE} then the `peaks` list is returned from the function. \code{Default is FALSE}.
+#' @param return logical; if \code{TRUE} then the `peaks` list is returned from the function. \code{Default is FALSE}.
 #'
 #' @export
 #' @importFrom stats aggregate
@@ -15,10 +15,9 @@
 
 convert <- function(input, outpath, return = FALSE)
 {
-
-    if (tools::file_ext(input) != 'mzML') {
-      stop(deparse(substitute(input)), ' is not a .mzML file', call. = FALSE)
-    }
+  if (tools::file_ext(input) != 'mzML') {
+    stop(deparse(substitute(input)), ' is not a .mzML file', call. = FALSE)
+  }
 
   open_raw <- mzR::openMSfile(input, backend = 'pwiz')
 
@@ -52,7 +51,7 @@ convert <- function(input, outpath, return = FALSE)
             filter_index[, 'product'] == 0)
 
   if (length(idn_out) > 0) {
-    filter_index <- filter_index[-idn_out, ]
+    filter_index <- filter_index[-idn_out,]
     chrom_raw[[idn_out]] <- NULL
   }
 
@@ -69,16 +68,18 @@ convert <- function(input, outpath, return = FALSE)
   }
 
   chrom_all <- chrom_tmp %>% bind_rows() %>% rename(., mz = product)
-  chrom_all[, 'rt'] <- round(chrom_all[, 'rt'] * 60, digits = 0)
+  chrom_all[, 'rt'] <- round(chrom_all[, 'rt'], digits = 1)
 
   chrom_agg <-
     chrom_all %>% group_by(., polarity, rt, mz) %>% summarise(., int = sum(int)) %>% ungroup(.) %>%
     mutate(., spf = paste0(.$polarity, ':', .$rt)) %>% arrange(., rt)
 
-  uuid <- data.frame(spf = unique(chrom_agg[,'spf']), id = seq(from = 1, to = length(unique(chrom_agg[,'spf']$spf))))
+  uuid <-
+    data.frame(spf = unique(chrom_agg[, 'spf']),
+               id = seq(from = 1, to = length(unique(chrom_agg[, 'spf']$spf))))
 
 
-  midx <- match(chrom_agg$spf, uuid[,'spf'])
+  midx <- match(chrom_agg$spf, uuid[, 'spf'])
   chrom_agg <- chrom_agg %>% mutate(., spid = uuid$id[midx])
 
 
@@ -88,6 +89,7 @@ convert <- function(input, outpath, return = FALSE)
     purrr::map(chrom_split, ~ {
       unique(.$polarity)
     }) %>% unlist(.)
+
   chrom_rt <-  purrr::map(chrom_split, ~ {
     unique(.$rt)
   }) %>% unlist(.)
@@ -107,13 +109,16 @@ convert <- function(input, outpath, return = FALSE)
     }) %>% unlist(.)
 
 
-  # this is too slow
+  # # this is too slow
   peaks <-
     purrr::map(chrom_split, ~ {
-      select(.,-c(polarity, rt, spf,spid)) %>% as.matrix(.)
+      select(., -c(polarity, rt, spf, spid)) %>% as.matrix(.)
     })
 
-
+  # peaks <-
+  #   purrr::map(chrom_split, ~ {
+  #     select(.,-c(rt, spf,spid)) %>% as.matrix(.)
+  #   })
   # create the `header``
 
   names(peaks) <- NULL
@@ -124,14 +129,16 @@ convert <- function(input, outpath, return = FALSE)
     data.frame(matrix(nrow = length(peaks), ncol = length(hdnm)))
   names(hd_tmp) <- hdnm
 
-  hd_tmp[, 'seqNum'] <-
-    hd_tmp[, 'acquisitionNum'] <-
+  hd_tmp[, 'acquisitionNum'] <-
     seq(from = 1,
         to = nrow(hd_tmp),
         by = 1)
+  #acqt <- max(hd_tmp$acquisitionNum) / 2
+  #  hd_tmp[, 'seqNum'] <- rep(1:acqt, each = 2)
 
+  hd_tmp[, 'seqNum'] <- hd_tmp[, 'acquisitionNum']
 
-  hd_tmp[,'msLevel'] <- rep(1, nrow(hd_tmp))
+  hd_tmp[, 'msLevel'] <- rep(1, nrow(hd_tmp))
   hd_tmp[, 'polarity'] <- chrom_pol
   hd_tmp[, 'retentionTime'] <- chrom_rt
   hd_tmp[, 'peaksCount'] <- peaks_count

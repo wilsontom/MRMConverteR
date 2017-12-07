@@ -11,7 +11,7 @@ convert(input, outpath, return = FALSE)
 
 \item{outpath}{a character string of the location to save converted files to. If \code{NULL} then \code{return} must be \code{TRUE}}
 
-\item{return}{logical ; if \code{TRUE} then the `peaks` list is returned from the function. \code{Default is FALSE}.}
+\item{return}{logical; if \code{TRUE} then the `peaks` list is returned from the function. \code{Default is FALSE}.}
 }
 \description{
 Convert MRM-MS \code{.mzML} files which contain a series of time-intensity pairs (chromatograms) to a series of LC-MS scan style \code{m/z}-intensity pairs.
