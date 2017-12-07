@@ -6,7 +6,7 @@
 #'
 #' @param input a character stirng of the absolute file path of a MRM-MS \code{.mzML} file
 #' @param outpath a character string of the location to save converted files to. If \code{NULL} then \code{return} must be \code{TRUE}
-#' @param return logical ; if \code{TRUE} then the `peaks` list is returned from the function. \code{Default is FALSE}.
+#' @param return logical; if \code{TRUE} then the `peaks` list is returned from the function. \code{Default is FALSE}.
 #'
 #' @export
 #' @importFrom stats aggregate
