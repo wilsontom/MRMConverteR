@@ -1,16 +1,11 @@
-NOTES
+# NOTES
 
-No `NOTES`, `WARNINGS` or `ERRORS` after `R CMD check`
+1 `NOTE` after R CMD check
 
 ```R
-<--->
-* checking tests ...
-  Running ‘testthat.R’
- OK
-* checking PDF version of manual ... OK
-* DONE
-
-Status: OK
-
+* checking installed package size ... NOTE
+  installed size is  8.6Mb
+  sub-directories of 1Mb or more:
+    extdata   8.4Mb
 ```
 
