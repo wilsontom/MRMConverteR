@@ -16,6 +16,5 @@ BugReports: https://github.com/wilsontom/MRMConverteR
 LazyData: TRUE
 Suggests:
     testthat,
-    covr,
-    msdata
+    covr
 RoxygenNote: 6.0.1
