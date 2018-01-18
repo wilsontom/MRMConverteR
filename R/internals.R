@@ -43,17 +43,43 @@ extract_prodcut <- function(x)
   }
 }
 
+# 2018-1-17 
+# probably the package user haven't installed the msdata bioconductor package
+# so that the header_names function will throw an exception:
+#
+# Error in mzR::openMSfile(fl, backend = "pwiz") : File  not found.
+#
+# I have manual add the headers that extract from an example mzXML file
+# This will improvements on the header_names performance as it no longer 
+# require parsing a large mzXML file, just returns a names vector.
+
+# #' @keywords internal
+# header_names <- function()
+# {
+  # fl <- system.file("threonine", "threonine_i2_e35_pH_tree.mzXML",
+                    # package = "msdata")
+  # ms_fl <- mzR::openMSfile(fl, backend = "pwiz")
+
+  # hdr <- mzR::header(ms_fl)
+  # return(names(hdr))
+# }
+
 #' @keywords internal
-header_names <- function()
-{
-  fl <- system.file("threonine", "threonine_i2_e35_pH_tree.mzXML",
-                    package = "msdata")
-  ms_fl <- mzR::openMSfile(fl, backend = "pwiz")
+header_names <- function() {
 
-  hdr <- mzR::header(ms_fl)
-  return(names(hdr))
+	# > names(hdr)
+	c("seqNum",                 "acquisitionNum",
+	  "msLevel",                "polarity",
+	  "peaksCount",             "totIonCurrent",
+	  "retentionTime",          "basePeakMZ",
+	  "basePeakIntensity",      "collisionEnergy",
+	  "ionisationEnergy",       "lowMZ",
+	  "highMZ",                 "precursorScanNum",
+	  "precursorMZ",            "precursorCharge",
+	  "precursorIntensity",     "mergedScan",
+	  "mergedResultScanNum",    "mergedResultStartScanNum",
+	  "mergedResultEndScanNum", "injectionTime",
+	  "spectrumId");
 }
-
-
 
 
