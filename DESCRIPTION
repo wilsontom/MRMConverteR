@@ -1,7 +1,7 @@
 Package: MRMConverteR
 Type: Package
 Title: Convert MRM-MS .mzML files to LC-MS style .mzML files
-Version: 0.0.99
+Version: 0.1.0
 Author: Tom Wilson <tpw2@aber.ac.uk>
 Maintainer: Tom Wilson <tpw2@aber.ac.uk>
 Description: MRMConverteR takes mzML files containing multiple MRM-MS chromatograms and converts them to LC-MS style scan data so that they can be processed by xcms.
@@ -12,7 +12,7 @@ Imports:
     purrr,
     tools
 URL: https://github.com/wilsontom/MRMConverteR
-BugReports: https://github.com/wilsontom/MRMConverteR
+BugReports: https://github.com/wilsontom/MRMConverteR/issues
 LazyData: TRUE
 Suggests:
     testthat,
