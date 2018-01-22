@@ -15,31 +15,15 @@ test_that('MRMConverteR', {
   expect_true(is.list(mrm_chroms))
   expect_error(mzR::header(mrm_raw))
 
-  xa <- names(mrm_chroms[[10]])[2]
-  xb <- names(mrm_chroms[[1]])[2]
-  expect_true(is.numeric(MRMConverteR:::extract_polarity(xa)))
-  expect_true(is.numeric(MRMConverteR:::extract_precursor(xa)))
-  expect_true(is.numeric(MRMConverteR:::extract_prodcut(xa)))
+  mrm_conv <- convert_mzml(example_file_local)
 
-  expect_that(MRMConverteR:::extract_polarity(xb), equals(0))
-  expect_that(MRMConverteR:::extract_precursor(xb), equals(0))
-  expect_that(MRMConverteR:::extract_prodcut(xb), equals(0))
+  expect_true(is.list(mrm_conv))
+  expect_true(length(mrm_conv) == 2)
+  expect_true(length(mrm_conv$peaks) == nrow(mrm_conv$header))
 
-  mzr_hd <- MRMConverteR:::header_names()
+  expect_true(is.list(mrm_conv$peaks))
+  expect_true(is.data.frame(mrm_conv$header))
 
-  expect_true(is.vector(mzr_hd))
-  expect_true(length(mzr_hd) == length(unique(mzr_hd)))
 
-  fl <- system.file("threonine", "threonine_i2_e35_pH_tree.mzXML",
-                    package = "msdata")
-
-  expect_error(convert(f1, ''))
-
-  ps <- convert(example_file_local, NULL, return = TRUE)
-
-  expect_true(is.list(ps))
-
-  psdim <- vapply(ps, ncol, length(ps))
-  expect_true(all(psdim == 2))
 
   })
