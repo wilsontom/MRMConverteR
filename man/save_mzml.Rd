@@ -4,10 +4,10 @@
 \alias{save_mzml}
 \title{Save Converted mzML}
 \usage{
-save_mzml(peaks, filename)
+save_mzml(input, filename)
 }
 \arguments{
-\item{peaks}{a list of \code{peaks} and \code{header} which has been created using the \code{convert_mzml} function}
+\item{input}{a list of \code{peaks} and \code{header} which has been created using the \code{convert_mzml} function}
 
 \item{filename}{a character string of the filename to save converted files to.}
 }
