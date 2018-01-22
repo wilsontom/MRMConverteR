@@ -15,7 +15,7 @@ header_names <- function(x){
 	  "precursorIntensity",     "mergedScan",
 	  "mergedResultScanNum",    "mergedResultStartScanNum",
 	  "mergedResultEndScanNum", "injectionTime",
-	  "spectrumId");
+	  "filterString");
 }
 
 
