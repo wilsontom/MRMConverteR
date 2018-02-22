@@ -1,6 +1,6 @@
 #' Save Converted mzML
 #'
-#' @param input a list of \code{peaks} and \code{header} which has been created using the \code{convert_mzml} function
+#' @param input a list of `peaks` and `header` which has been created using the `convert_mzml` function
 #' @param filename a character string of the filename to save converted files to.
 #'
 #' @export
