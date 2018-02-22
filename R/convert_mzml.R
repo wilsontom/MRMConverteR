@@ -1,16 +1,31 @@
 #' Convert MRM-MS files to LC-MS style files
 #'
-#' Convert MRM-MS \code{.mzML} files which contain a series of time-intensity pairs (chromatograms) to a series of LC-MS scan style \code{m/z}-intensity pairs.
+#' Data aquired using Liquid Chromatography Triple Quadrupole Mass Spectromety (LC-QqQ-MS) operating in Selective Reaction Monitoiring (SRM) or Multiple Reaction Monitoring (MRM) mode
+#' is stored in `mzML` files as a series of chromatrograms (retention time vs intensity). `convert_mzml` converts `mzML` chromatogram data into spectra; which is how data acquired using
+#' LC-MS is stored. Once SRM/MRM data is represented as a series of spectra (_m/z_ vs intensity) then tools such as `xcms` can be used to process and analyse the data. 
 #'
-#' Once the data is represented as a matrix of \code{m/z} and intensity pairs for each scan; the data can be further processed by open source tools such as \code{xcms}.
-#'
-#' @param mzML a character stirng of the absolute file path of a MRM-MS \code{.mzML} file
-#' @param return logical; if \code{TRUE} then the `peaks` list is returned from the function. \code{Default is FALSE}.
+#' @param mzML a character string of the absolute file path of a SRM/MRM-MS `.mzML` file
+#' @return a list of two elements
+#'   - __peaks__ a list of spectra 
+#'   - __header__ a `data.frame` of spectra header data
 #'
 #' @export
 #' @importFrom stats aggregate
 #' @importFrom dplyr %>% select bind_rows group_by summarise ungroup arrange rename tibble mutate
 #' @author Tom Wilson \email{tpw2@@aber.ac.uk}
+#' @examples
+#' library(msdata)
+#' librar(mzR)
+#' 
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+
+
 
 convert_mzml <- function(mzML)
 {
